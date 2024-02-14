@@ -149,27 +149,30 @@ const fetchRefundRateData = async (
   }
 };
 
-const prevPage = (
-  marketplaceName: string | null,
-  storeId: string | null,
-  firstDate: string | null
-) => {
+const prevPage = async () => {
+  const userInfoResponse = store.getters.currentUser;
+  const storeId = userInfoResponse?.Data?.user?.store[0]?.storeId;
+  const marketplaceName =
+    userInfoResponse?.Data?.user?.store[0]?.marketplaceName;
+  console.log(marketplaceName, storeId, firstDate.value, secondDate.value);
   if (pageNumber.value > 1) {
     pageNumber.value--;
     if (marketplaceName && storeId && firstDate) {
-      fetchDetailData(marketplaceName, storeId, firstDate);
+      await fetchDetailData(marketplaceName, storeId, firstDate.value);
     }
   }
 };
 
-const nextPage = (
-  marketplaceName: string | null,
-  storeId: string | null,
-  firstDate: string | null
-) => {
+const nextPage = async () => {
+  const userInfoResponse = store.getters.currentUser;
+  const storeId = userInfoResponse?.Data?.user?.store[0]?.storeId;
+  const marketplaceName =
+    userInfoResponse?.Data?.user?.store[0]?.marketplaceName;
+
+  console.log(marketplaceName, storeId, firstDate.value, secondDate.value);
   pageNumber.value++;
   if (marketplaceName && storeId && firstDate) {
-    fetchDetailData(marketplaceName, storeId, firstDate);
+    await fetchDetailData(marketplaceName, storeId, firstDate.value);
   }
 };
 
@@ -254,9 +257,9 @@ watch(selectedDays, async (newValue) => {
           dataLabels: {
             // enabled: true,
             // rotation: 270,
-            formatter: function () {
-              return currency.value + this.y;
-            },
+            // formatter: function () {
+            //   return currency.value + this.y;
+            // },
           },
         },
         {
@@ -273,6 +276,8 @@ watch(selectedDays, async (newValue) => {
             const date = point.category.split(",")[1].trim();
             if (clickCount === 0) {
               firstDate.value = date;
+              console.log(firstDate.value);
+
               showDetailTable.value = true;
               fetchDetailData(marketplaceName, storeId, firstDate.value);
             } else {

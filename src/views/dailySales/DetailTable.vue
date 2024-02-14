@@ -10,22 +10,26 @@
           <th scope="col" class="px-6 py-3">SKU</th>
           <th scope="col" class="px-6 py-3">Product Name</th>
           <th scope="col" class="px-6 py-3">
-            <span class="block">Saturday</span>
-            <span class="block">{{
+            <span class="block text-right">Saturday</span>
+            <span class="block text-right">{{
               moment(props.detailTableData.selectedDate).format("DD-MM-YYYY")
             }}</span>
-            <span class="block !w-40">Sales / Units</span>
-            <span class="block">Avg. Selling Price</span>
+            <span class="block !w-40 text-right">Sales / Units</span>
+            <span class="block text-right">Avg. Selling Price</span>
           </th>
+
           <th scope="col" class="px-6 py-3">
-            <span class="block">Monday</span>
-            <span class="block">{{
-              moment(props.detailTableData.selectedDate2 ?? "").format(
-                "DD-MM-YYYY"
-              )
+            <span class="block text-right">Monday</span>
+            <span class="block text-right">{{
+              props.detailTableData.selectedDate2 &&
+              moment(props.detailTableData.selectedDate2).isValid()
+                ? moment(props.detailTableData.selectedDate2).format(
+                    "DD-MM-YYYY"
+                  )
+                : ""
             }}</span>
-            <span class="block !w-40">Sales / Units</span>
-            <span class="block">Avg. Selling Price</span>
+            <span class="block !w-40 text-right">Sales / Units</span>
+            <span class="block text-right">Avg. Selling Price</span>
           </th>
           <th scope="col" class="!w-36 px-6 py-3">Sku Refund Rate</th>
         </tr>
@@ -38,13 +42,39 @@
         >
           <td class="px-6 py-4">{{ item?.sku }}</td>
           <td class="px-6 py-4">{{ item?.productName }}</td>
-          <td class="px-6 py-4">
-            C$ {{ (item?.amount / item?.qty).toFixed(2) }}
+          <td
+            class="px-6 py-4 items-center text-[#2CAFFE] font-bold text-right"
+          >
+            <div>
+              <span>${{ item.amount }} / {{ item.qty }}</span>
+            </div>
+
+            <div class="ml-4 text-right">
+              <span>C$ {{ (item?.amount / item?.qty).toFixed(2) }}</span>
+            </div>
           </td>
-          <td class="px-6 py-4">
-            C$ {{ (item?.amount2 / item?.qty2).toFixed(2) }}
+          <td
+            class="px-6 py-4 items-center text-[#00E272] font-bold text-right"
+          >
+            <div>
+              <span>${{ item.amount2 }} / {{ item.qty2 }}</span>
+            </div>
+            <div class="ml-4">
+              <span
+                >C$
+                {{
+                  item?.amount2 !== null &&
+                  item?.qty2 !== null &&
+                  item?.amount2 !== undefined &&
+                  item?.qty2 !== undefined &&
+                  item?.qty2 !== 0
+                    ? (item?.amount2 / item?.qty2).toFixed(2)
+                    : 0
+                }}</span
+              >
+            </div>
           </td>
-          <td class="px-6 py-4">{{ item?.amount }}</td>
+          <td class="px-6 py-4 text-right">{{ item?.amount }}</td>
         </tr>
       </tbody>
     </table>
