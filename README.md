@@ -24,5 +24,10 @@
 
 # Detail Table
 
-![image](https://github.com/nermindonat/vue-daily-sales/assets/70170606/74ce2aac-3727-431f-8d25-77a45e66a14e)
+![image](https://github.com/nermindonat/vue-daily-sales/assets/70170606/48a14625-69ec-441e-baa5-d3558f1f2179)
+
+# Detail Table
+
+![image](https://github.com/nermindonat/vue-daily-sales/assets/70170606/db6f4f8b-2077-4b98-acfa-7dd0fbde6a4f)
+
 
